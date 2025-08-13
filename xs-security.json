@@ -1,0 +1,58 @@
+{
+  "xsappname": "rag-vector-engine",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of a chatbot application provides RAG-based responses based on the document context",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.ChatBotAdmin",
+      "description": "Admin scope for ChatBot operations"
+    },
+    {
+      "name": "$XSAPPNAME.ChatBotUser",
+      "description": "User scope for ChatBot operations"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    },
+    {
+      "name": "ChatBotAdmins",
+      "description": "A Admin can upload files and chat",
+      "scope-references": [
+        "$XSAPPNAME.ChatBotAdmin"
+      ]
+    },
+    {
+      "name": "ChatBotUsers",
+      "description": "user can chat",
+      "scope-references": [
+        "$XSAPPNAME.ChatBotUser"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "ChatBotAdminCollections",
+      "description": "A Admin can upload files and chat",
+      "role-template-references": [
+        "$XSAPPNAME.ChatBotAdmins"
+      ]
+    },
+    {
+      "name": "ChatBotUserCollections",
+      "description": "user can chat",
+      "role-template-references": [
+        "$XSAPPNAME.ChatBotUsers"
+      ]
+    }
+  ]
+}

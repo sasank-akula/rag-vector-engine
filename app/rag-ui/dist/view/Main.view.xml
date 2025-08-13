@@ -1,0 +1,286 @@
+<mvc:View controllerName="com.ai.ragui.controller.Main"
+    xmlns:unified="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:upload="sap.m.upload"
+    xmlns:mdcat="sap.ui.mdc.actiontoolbar"
+    xmlns:core="sap.ui.core"
+>
+    <Page id="sideContentContainer"
+        showHeader="false"
+        showNavButton="false">
+         <l:DynamicSideContent
+            id="DynamicSideContent"
+            class="sapUiDSCExplored sapUiContentPadding"
+            containerQuery="true"
+            sideContentFallDown="BelowM"
+            breakpointChanged=".handleBreakpointChangeEvent"
+            showSideContent="{UserData>/showSideContent}"
+        >
+            <l:mainContent>
+                <Page
+                    id="_IDGenPage"
+                    showHeader="false"
+                    showFooter="true"
+                    class="chatPage"
+                    enableScrolling="false"
+                >
+                    <HBox
+                        id="_IDGenHBox"
+                        class="header"
+                        justifyContent="SpaceBetween"
+                        alignItems="Center"
+                    >
+                        <HBox
+                            id="_IDGenHBox1"
+                            class="modelSelector"
+                            alignItems="Center"
+                        >
+                            <core:Icon
+                                id="_IDGenIcon"
+                                src="sap-icon://da"
+                                size="1.5rem"
+                                class="dropdownArrow"
+                            />
+                            <Text
+                                id="_IDGenText"
+                                text="ChatBot"
+                                class="modelText"
+                            />
+                        </HBox>
+
+                        <HBox
+                            id="_IDGenHBox2"
+                            alignItems="Center"
+                        >
+                            <HBox id="_IDGenHBox3">
+                                <core:Icon
+                                    id="_IDGenIcon1"
+                                    class="headerBtn sapUiLargeMarginLeft"
+                                    src="sap-icon://refresh"
+                                    press=".onReloadChat"
+                                />
+                            </HBox>
+                        </HBox>
+                    </HBox>
+                    <ScrollContainer
+                        busyIndicatorDelay="1000"
+                        id="chatScroll"
+                        height="75%"
+                        class="chatConversation"
+                        vertical="true"
+                        horizontal="false"
+                        focusable="false"
+                        width="100%"
+                    >
+                        <VBox
+                            id="_IDGenVBox"
+                            class="customMainBox"
+                            fitContainer="true"
+                            width="100%"
+                        >
+                            <VBox
+                                id="_IDGenVBox1"
+                                alignItems="Center"
+                                justifyContent="Center"
+                                class="greetingBox"
+                            >
+                                <!-- <Text text="Hello Sisira" class="greetingText" /> -->
+                                <Text
+                                    id="_IDGenText1"
+                                    text="{= ${UserData>/firstname} ? 'Hello, ' + ${UserData>/firstname} : 'Hello' }"
+                                    class="greetingText"
+                                />
+                            </VBox>
+
+                            <VBox
+                                id="messagesVBox"
+                                items="{oChatModel>/list}"
+                                width="100%"
+                            >
+                                <HBox
+                                    id="_IDGenHBox4"
+                                    width="100%"
+                                    class="chatRow"
+                                    justifyContent="{= ${oChatModel>type} === 'query' ? 'End' : 'Start'}"
+                                >
+                                    <HBox
+                                        id="_IDGenHBox5"
+                                        visible="{= ${oChatModel>type} === 'query'}"
+                                        class="bubbleRow sapUiSmallMarginTop sapUiSmallMarginBottom"
+                                        alignItems="End"
+                                        width="auto"
+                                    >
+                                        <Text
+                                            id="_IDGenText2"
+                                            renderWhitespace="false"
+                                            textAlign="Begin"
+                                            textDirection="LTR"
+                                            text="{oChatModel>text}"
+                                            class="userMessage"
+                                            width="auto"
+                                            wrapping="true"
+                                        />
+                                        <core:Icon
+                                            id="_IDGenIcon3"
+                                            src="sap-icon://person-placeholder"
+                                            size="1.5rem"
+                                            class="sapUiTinyMarginBeginEnd"
+                                        />
+                                    </HBox>
+
+                                    <HBox
+                                        id="_IDGenHBox6"
+                                        visible="{= ${oChatModel>type} === 'response'}"
+                                        class="bubbleRow sapUiSmallMarginTop sapUiSmallMarginBottom"
+                                        alignItems="End"
+                                        width="100%"
+                                    >
+                                        <core:Icon
+                                            id="_IDGenIcon4"
+                                            src="sap-icon://da"
+                                            size="1.5rem"
+                                            class="sapUiTinyMarginBeginEnd"
+                                        />
+                                        <FormattedText
+                                            id="_IDGenFormattedText"
+                                            htmlText="{oChatModel>text}"
+                                            busy="{oChatModel>busy}"
+                                            class="assistantMessage"
+                                            width="90%"
+                                        />
+                                        <!-- <Text id="_IDGenText3" text="{oChatModel>text}" busy="{oChatModel>busy}" class="assistantMessage" width="90%" wrapping="true" /> -->
+                                    </HBox>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </ScrollContainer>
+                    <!-- <Panel
+                        id="_IDGenPanel"
+                        class="transparentFooter"
+                        backgroundDesign="Transparent"
+                        visible="true"
+                        width="98%"
+                    >
+                        <FeedInput
+                            class="customInputHeight"
+                            id="userInput"
+                            placeholder="Ask anything ..."
+                            post="onSendMessage"
+                        />
+                    </Panel> -->
+                    <footer>
+                        <Toolbar
+                            class="greetingBox"
+                            id="_IDGenToolbar"
+                            height="auto"
+                            design="Solid"
+                            width="95%"
+                        >
+                            <FeedInput
+                                class="customInputHeight"
+                                id="userInput"
+                                placeholder="Ask anything ..."
+                                post=".onSendMessage"
+                            />
+                        </Toolbar>
+                    </footer>
+                </Page>
+            </l:mainContent>
+
+            <l:sideContent>
+                <Toolbar id="_IDGenToolbar4" class="Toolbar">
+                    <Title id="documentCount" text="Documents ({/DocumentFiles/$count})" />
+                </Toolbar>
+
+                <Toolbar
+                    id="_IDGenToolbar1"
+                    class="Toolbar"
+                >
+                    <SearchField
+                        id="searchDocuments"
+                        class="sapUiSmallMarginRight sapUiSmallMarginTop"
+                        search=".onSearchDocuments"
+                    />
+                    <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                    <unified:FileUploader
+                        fileType="pdf"
+                        valueState="None"
+                        id="idFileUploader"
+                        buttonOnly="true"
+                        buttonText="Upload"
+                        name="myFileUpload"
+                        tooltip="Upload your file"
+                        uploadOnChange="true"
+                        change=".onChange"
+                        maximumFileSize="5"
+                        fileSizeExceed=".onFileSizeExceed"
+                    />
+                </Toolbar>
+                <l:VerticalLayout
+                    id="_IDGenVerticalLayout"
+                    width="100%"
+                >
+                    <List
+                        id="idList"
+                        items="{/DocumentFiles}"
+                        growing="true"
+                        growingThreshold="50"
+                        delete=".onFileDeleted"
+                        mode="Delete"
+                        backgroundDesign="Transparent"
+                        updateFinished=".updateFileCount"
+                    >
+                        <infoToolbar>
+                            <OverflowToolbar
+                                visible="false"
+                                id="idInfoToolbar"
+                            >
+                                <Label id="idFilterLabel" />
+                            </OverflowToolbar>
+                        </infoToolbar>
+                        <StandardListItem
+                            id="_IDGenStandardListItem"
+                            title="{fileName}"
+                            iconDensityAware="false"
+                            iconInset="false"
+                        />
+                    </List>
+                </l:VerticalLayout>
+            </l:sideContent>
+        </l:DynamicSideContent>
+
+        <footer>
+            <Toolbar
+                id="_IDGenToolbar2"
+                visible="{UserData>/showSideContent}"
+            >
+                <Button
+                    text="Toggle"
+                    type="Accept"
+                    press=".handleToggleClick"
+                    id="toggleButton"
+                />
+                <Button
+                    text="Upload Documents"
+                    id="showSideContentButton"
+                    press=".handleSideContentShow"
+                    visible="false"
+                />
+                <Slider
+                    id="DSCWidthSlider"
+                    value="100"
+                    liveChange=".handleSliderChange"
+                    visible="{= !${media>/phone}}"
+                />
+                <Text
+                    id="DSCWidthHintText"
+                    text="Best view in full screen"
+                    visible="{= !${media>/phone}}"
+                />
+            </Toolbar>
+        </footer>
+
+    </Page>
+</mvc:View>

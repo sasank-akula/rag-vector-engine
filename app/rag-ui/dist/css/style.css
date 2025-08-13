@@ -1,0 +1,246 @@
+.customMainBox {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .greetingBox {
+    margin-top: 180px;
+  }
+  
+  .greetingText {
+    font-size: 2.2rem;
+    color: #4386F8;
+    font-weight: 400;
+    margin-bottom: 50%;
+  }
+  
+  .bottomBar {
+    width: 100%;
+    padding-bottom: 40px; /* Space to screen bottom */
+    /* background:linear-gradient(to bottom right, #bedfff, #ffffff); */
+  }
+  
+  .searchBox {
+    background: #fff;
+    border-radius: 32px;
+    box-shadow: 0 3px 30px 0 rgba(55, 55, 55, 0.12);
+    padding: 22px 32px;
+    margin-bottom: 16px;
+    margin-top: 10%;
+    width: 90%;
+    max-width: 720px;
+  }
+
+  .customInputHeight{
+    background: transparent;
+  }
+
+ /* Container VBox for all messages */
+#messagesVBox {
+    padding: 12px;
+    overflow-y: auto;
+    height: 100%; /* Make sure container can scroll if needed */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* Each chat row container */
+  .chatRow {
+    width: 100%;
+  }
+  
+  /* Common bubble styling */
+  .bubbleRow {
+    padding: 10px 16px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    word-break: break-word;
+    box-shadow: 0 2px 8px rgba(178, 230, 245, 0.12);
+    margin-bottom: 20%;
+  }
+  
+  /* User message bubble (right aligned) */
+  .userMessage {
+    background-color: #fddfff;
+    border-radius: 20px;
+    border-color: #b9b9b9;
+    border-style: solid;
+    border-width: 1px;
+    padding: 12px 18px;
+    font-size: 1rem;
+    border-top-right-radius: 0;
+    line-height: 1.3;
+    max-width: 100%;
+  }
+
+  .iconHeight{
+     align-self: flex-start !important;
+    margin-top: 0.2rem;
+  }
+  
+  /* User bubble container */
+  .bubbleRow.sapUiSmallMarginTop.sapUiSmallMarginBottom[alignitems="end"] {
+    justify-content: flex-end;
+  }
+  
+  /* Assistant message bubble (left aligned) */
+  .assistantMessage {
+    padding: 12px 18px;
+    font-size: 1rem;
+    border-top-left-radius: 0;
+    
+    max-width: 100%;
+  }
+  
+  /* Adjust the assistant bubble container */
+  .bubbleRow.sapUiSmallMarginTop.sapUiSmallMarginBottom[alignitems="end"] {
+    justify-content: flex-start;
+  }
+  
+  /* Icons beside each message */
+  .sapUiTinyMarginBeginEnd {
+    flex-shrink: 0;
+  }
+  
+  /* Optional: vertical spacing around each bubble */
+  .sapUiSmallMarginTop {
+    margin-top: 4px !important;
+  }
+  
+  .sapUiSmallMarginBottom {
+    margin-bottom: 4px !important;
+  }
+  
+  /* Ensure text wraps nicely inside Text controls */
+  /* .userMessage,
+  .assistantMessage {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+  } */
+  
+  /* Scrollbar styling (optional & may vary by browser) */
+  #messagesVBox::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #messagesVBox::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  #messagesVBox::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+  }
+  
+  
+  .searchInput {
+    border: none;
+    background: transparent;
+    font-size: 1.3rem;
+    color: #333;
+  }
+  
+  .micButton .sapMBtnIcon {
+    color: #808080;
+    font-size: 1.7rem;
+  }
+  
+  .actionRow {
+    margin-top: 12px;
+    gap: 22px;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .actionText {
+    color: #808080;
+    font-size: 1.18rem;
+    padding-right: 10px;
+  }
+
+  .header {
+    height: 50px;
+    position: sticky;
+    padding: 0 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  .Toolbar{
+    background: transparent;
+  }
+  
+  .modelSelector {
+    gap: 8px;
+  }
+  
+  .modelText {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2a2a2a;
+  }
+  
+  .dropdownArrow {
+    color: #0070f2;
+  }
+  
+  .headerBtn {
+    margin-left: 16px;
+    cursor: pointer;
+    color: #5a5a5a;
+    transition: color 0.2s ease;
+  }
+  
+  .headerBtn:hover {
+    color: #0070f2;
+  }
+
+  .chatPage {
+    background:linear-gradient(135deg, #cfd2fb, #fddfff, #f6edf7);
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .newChatClass{
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
+
+}
+.greetingBox {
+   margin: auto;
+}
+
+
+.bot-content h3 {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.bot-content ol,
+.bot-content ul {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  font-size: medium;
+  padding-left: 20px; /* keep indentation */
+}
+
+.bot-content p {
+  margin-top: 4px;
+  font-size: medium;
+  margin-bottom: 4px;
+}
+
+
+
+
+/* .greetingBox.hasMessages {
+    margin-bottom: 0;
+} */
+
