@@ -17,85 +17,39 @@ sap.ui.define([
       let appModulePath = sap.ui.require.toUrl((appPath)?.replaceAll(".", "/"));
       return appModulePath;
     },
-
-
     _getRagResponse: async function (convId) {
-
-      let oInput = this.byId("userInput");
-      let prompt = oInput.getValue().trim();
+      this.scrollChat();
+      const oInput = this.byId("userInput");
+      const prompt = oInput.getValue().trim();
       if (!prompt) return;
 
-      let oModel = this.getView().getModel("oChatModel");
-      let aChatList = oModel.getProperty("/list") || [];
+      const oChatModel = this.getView().getModel("oChatModel");
+      const list = oChatModel.getProperty("/list") || [];
 
+      if (!oChatModel.getProperty("/started")) oChatModel.setProperty("/started", true);
 
-      if (!oModel.getProperty("/started")) {
-        oModel.setProperty("/started", true);
+      list.push({ type: "query", text: prompt, busy: false });
+      list.push({ type: "response", text: "", busy: true });
+      oChatModel.setProperty("/list", list);
+
+      const oServiceModel = this.getView().getModel();
+      const oAction = oServiceModel.bindContext("/getChatRagResponse(...)");
+
+      ["conversationId", "messageId", "message_time", "user_id", "user_query"]
+        .forEach((k, i) => oAction.setParameter(k, [convId, "", new Date().toISOString(), "user_id-24045578", prompt][i]));
+
+      try {
+        await oAction.execute();
+        const res = oAction.getBoundContext().getObject();
+        list[list.length - 1] = { type: "response", text: res?.content || "No response", busy: false };
+      } catch {
+        list[list.length - 1] = { type: "response", text: "Something went wrong.", busy: false };
       }
 
-
-      aChatList.push({
-        type: "query",
-        text: prompt,
-        busy: false
-      });
-
-      aChatList.push({
-        type: "response",
-        text: "",
-        busy: true
-      });
-
-      oModel.setProperty("/list", aChatList);
-      let that = this;
-      let timeStamp = new Date().toISOString();
-
-
-      let payload = {
-        "conversationId": convId,
-        "messageId": "",
-        "message_time": timeStamp,
-        "user_id": "user_id-24045578",
-        "user_query": prompt
-      }
-
-      $.ajax({
-        // url: "/odata/v4/roadshow/getChatRagResponse",
-        url: this._getServicePath() + "/odata/v4/roadshow/getChatRagResponse",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(payload),
-        success: function (oData) {
-          let list = oModel.getProperty("/list") || [];
-          if (list.length > 0 && list[list.length - 1].busy) {
-            list[list.length - 1] = {
-              type: "response",
-              text: oData.content,
-              busy: false
-            };
-            oModel.setProperty("/list", list);
-          }
-          that.scrollChat()
-        },
-        error: function () {
-          let list = oModel.getProperty("/list") || [];
-          if (list.length > 0 && list[list.length - 1].busy) {
-            list[list.length - 1] = {
-              type: "response",
-              text: "Something went wrong.",
-              busy: false
-            };
-            oModel.setProperty("/list", list);
-          }
-          that.scrollChat();
-        }
-      });
-
+      oChatModel.setProperty("/list", list);
       oInput.setValue("");
-      that.scrollChat();
-
+      this.scrollChat();
     },
-
     onQuickAction: function (oEvent) {
       let sText = oEvent.getSource().getText();
       this.byId("jouleInput").setValue(sText);
@@ -114,25 +68,23 @@ sap.ui.define([
       });
     },
     ODataPost: function (sPath, oNewData) {
-    let oModel = this.getView().getModel();
-    let oListBinding = oModel.bindList(sPath);
-    
-    // Create entity and get its context
-    let oContext = oListBinding.create(oNewData);
+      let oModel = this.getView().getModel();
+      let oListBinding = oModel.bindList(sPath);
 
-    // Handle success
-    oContext.created()
+      // Create entity and get its context
+      let oContext = oListBinding.create(oNewData);
+
+      // Handle success
+      oContext.created()
         .then(() => {
-            MessageToast.show("File Uploaded successfully!");
-            
+          MessageToast.show("File Uploaded successfully!");
+
         })
         .catch((oError) => {
-            MessageBox.error("Error creating data: " + oError.message);
-            console.error("Creation error:", oError);
+          MessageBox.error("Error creating data: " + oError.message);
+          console.error("Creation error:", oError);
         });
-},
-
-
+    },
     scrollChat: function () {
       setTimeout(() => {
         let oScroll = this.byId("chatScroll");
@@ -141,6 +93,5 @@ sap.ui.define([
         }
       }, 150);
     }
-
   });
 });

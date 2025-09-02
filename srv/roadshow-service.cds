@@ -1,5 +1,5 @@
 using { com.ai as db } from '../db/schema';
-@(requires: 'authenticated-user')
+// @(requires: 'authenticated-user')
 service RoadshowService {
      entity Conversation  as projection on db.Conversation;
     entity Message      as projection on db.Message;
@@ -20,8 +20,7 @@ service RoadshowService {
     }
 
   action   getChatRagResponse(conversationId : String, messageId : String, message_time : String, user_id : String, user_query : String) returns RagResponse;
-function deleteChatData() returns String;
-    // function executeSimilaritySearch() returns String;
+  function deleteChatData() returns String;
     
 
 }

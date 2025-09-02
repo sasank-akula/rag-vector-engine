@@ -1,160 +1,179 @@
 _schema-version: 3.3.0
 ID: rag-vector-engine
-description: A chatbot application provides RAG-based responses based on the document
-  context.
+description: A chatbot application provides RAG-based responses based on the document context.
 version: 1.0.0
 modules:
-- name: rag-vector-engine-srv
-  type: nodejs
-  path: gen/srv
-  requires:
-  - name: rag-vector-engine-auth
-  - name: rag-vector-engine-db
-  - name: rag-vector-engine-destination-service
-  provides:
-  - name: srv-api
-    properties:
-      srv-url: ${default-url}
-  parameters:
-    buildpack: nodejs_buildpack
-    instances: 1
-  build-parameters:
-    builder: npm-ci
-- name: rag-vector-engine-db-deployer
-  type: hdb
-  path: gen/db
-  requires:
-  - name: rag-vector-engine-db
-  parameters:
-    buildpack: nodejs_buildpack
-- name: rag-vector-engine-app-deployer
-  type: com.sap.application.content
-  path: gen
-  requires:
-  - name: rag-vector-engine-auth
-  - name: srv-api
-  - name: rag-vector-engine-html5-repo-host
+  - name: rag-vector-engine-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: rag-vector-engine-auth
+      - name: rag-vector-engine-db
+      - name: rag-vector-engine-destination-service
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      instances: 1
+    build-parameters:
+      builder: npm-ci
+  - name: rag-vector-engine-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: rag-vector-engine-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: rag-vector-engine-app-deployer
+    type: com.sap.application.content
+    path: gen
+    requires:
+      - name: rag-vector-engine-auth
+      - name: srv-api
+      - name: rag-vector-engine-html5-repo-host
+        parameters:
+          config:
+            HTML5Runtime_enabled: true
+          content-target: true
     parameters:
       config:
         HTML5Runtime_enabled: true
-      content-target: true
-  parameters:
-    config:
-      HTML5Runtime_enabled: true
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            HTML5.DynamicDestination: true
-            HTML5.ForwardAuthToken: true
-            Name: srv-api
-            ProxyType: Internet
-            Type: HTTP
-            URL: ~{srv-api/srv-url}
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-  build-parameters:
-    build-result: app/
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
+    build-parameters:
+      build-result: app/
+      requires:
+        - artifacts:
+            - comairagui.zip
+          name: comairagui
+          target-path: app/
+        - artifacts:
+            - comairagadminui.zip
+          name: comairagadminui
+          target-path: app/
+  - name: rag-vector-engine-destination-content
+    type: com.sap.application.content
     requires:
-    - artifacts:
-      - comairagui.zip
-      name: comairagui
-      target-path: app/
-- name: rag-vector-engine-destination-content
-  type: com.sap.application.content
-  requires:
-  - name: rag-vector-engine-destination-service
+      - name: rag-vector-engine-destination-service
+        parameters:
+          content-target: true
+      - name: rag-vector-engine-html5-repo-host
+        parameters:
+          service-key:
+            name: rag-vector-engine-html5-repo-host-key
+      - name: rag-vector-engine-auth
+        parameters:
+          service-key:
+            name: rag-vector-engine-auth-key
     parameters:
-      content-target: true
-  - name: rag-vector-engine-html5-repo-host
-    parameters:
-      service-key:
-        name: rag-vector-engine-html5-repo-host-key
-  - name: rag-vector-engine-auth
-    parameters:
-      service-key:
-        name: rag-vector-engine-auth-key
-  parameters:
-    content:
-      instance:
-        destinations:
-        - Name: rag_vector_engine_rag_vector_engine_html5_repo_host
-          ServiceInstanceName: rag-vector-engine-html5-repo-host
-          ServiceKeyName: rag-vector-engine-html5-repo-host-key
-          sap.cloud.service: rag-vector-engine
-        - Authentication: OAuth2UserTokenExchange
-          Name: rag_vector_engine_rag_vector_engine_auth
-          ServiceInstanceName: rag-vector-engine-auth
-          ServiceKeyName: rag-vector-engine-auth-key
-          sap.cloud.service: rag-vector-engine
-        existing_destinations_policy: ignore
-  build-parameters:
-    no-source: true
-- name: comairagui
-  type: html5
-  path: app/rag-ui
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-resources:
-- name: rag-vector-engine-auth
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      tenant-mode: dedicated
-      xsappname: rag-vector-engine-${org}-${space}
-    path: ./xs-security.json
-    service: xsuaa
-    service-plan: application
-- name: rag-vector-engine-db
-  type: com.sap.xs.hdi-container
-  parameters:
-    service: hana
-    service-plan: hdi-shared
-- name: rag-vector-engine-destination-service
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: true
-      init_data:
+      content:
         instance:
           destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          - Authentication: NoAuthentication
-            HTML5.DynamicDestination: true
-            HTML5.ForwardAuthToken: true
-            Name: srv-api
-            ProxyType: Internet
-            Type: HTTP
-            URL: ~{srv-api/srv-url}
-          existing_destinations_policy: update
-    service: destination
-    service-plan: lite
-  requires:
-  - name: srv-api
-- name: rag-vector-engine-html5-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-plan: app-host
+            - Name: rag_vector_engine_rag_vector_engine_html5_repo_host
+              ServiceInstanceName: rag-vector-engine-html5-repo-host
+              ServiceKeyName: rag-vector-engine-html5-repo-host-key
+              sap.cloud.service: rag-vector-engine
+            - Authentication: OAuth2UserTokenExchange
+              Name: rag_vector_engine_rag_vector_engine_auth
+              ServiceInstanceName: rag-vector-engine-auth
+              ServiceKeyName: rag-vector-engine-auth-key
+              sap.cloud.service: rag-vector-engine
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+  - name: comairagui
+    type: html5
+    path: app/rag-ui
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm ci
+        - npm run build
+      supported-platforms:
+        []
+  - name: comairagadminui
+    type: html5
+    path: app/rag-admin-ui
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm ci
+        - npm run build
+      supported-platforms:
+        []
+resources:
+  - name: rag-vector-engine-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: rag-vector-engine-${org}-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+  - name: rag-vector-engine-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: rag-vector-engine-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+            existing_destinations_policy: update
+      service: destination
+      service-plan: lite
+    requires:
+      - name: srv-api
+  - name: rag-vector-engine-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-  - builder: custom
-    commands:
-    - npm ci
-    - npx cds build --production
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

@@ -27,7 +27,9 @@ entity DocumentChunk : cuid, managed {
     text_chunk      : LargeString;
     metadata_column : LargeString;
     embedding       : Vector(1536);
+    document        : Association to SyncTable;
     documentID      : Association to DocumentFiles;
+    scrapdataID     : Association to ScrapedData;
 }
 
 entity DocumentFiles : cuid, managed {
@@ -38,5 +40,20 @@ entity DocumentFiles : cuid, managed {
     fileName  : String;
     size      : String;
     chunkID   : Composition of many DocumentChunk
-                    on chunkID.documentID=$self;
+                    on chunkID.documentID = $self;
+}
+
+entity SyncTable : managed {
+    key pageId  : String;
+        title   : String;
+        version : Integer;
+        chuncks : Composition of many DocumentChunk
+                      on chuncks.document = $self;
+}
+
+entity ScrapedData : cuid, managed {
+    title   : String;
+    url     : String;
+    chunkID : Composition of many DocumentChunk
+                  on chunkID.scrapdataID = $self;
 }

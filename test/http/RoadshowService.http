@@ -1,0 +1,121 @@
+@server=http://localhost:4004
+
+
+### Conversation
+# @name Conversation_GET
+GET {{server}}/odata/v4/roadshow/Conversation
+
+
+
+### Conversation
+# @name Conversation_POST
+POST {{server}}/odata/v4/roadshow/Conversation
+Content-Type: application/json
+
+{
+  "cID": "3523153d-dff3-49ef-b066-9342973dceb5",
+  "userID": "userID-3523153",
+  "creation_time": "2000-11-24T00:00:00.000Z",
+  "last_update_time": "2010-07-30T00:00:00.000Z",
+  "title": "title-3523153",
+  "to_messages": [
+    {
+      "mID": "28803176-b843-4c74-88e1-759a41c58b69",
+      "role": "role-28803176",
+      "content": "content-28803176",
+      "creation_time": "2019-01-14T00:00:00.000Z"
+    },
+    {
+      "mID": "28803177-6804-4864-9ede-46a0bb998624",
+      "role": "role-28803177",
+      "content": "content-28803177",
+      "creation_time": "2005-11-22T00:00:00.000Z"
+    }
+  ]
+}
+
+
+### Conversation
+# @name Conversation_PATCH
+PATCH {{server}}/odata/v4/roadshow/Conversation/3523153d-dff3-49ef-b066-9342973dceb5
+Content-Type: application/json
+
+{
+  "cID": "3523153d-dff3-49ef-b066-9342973dceb5",
+  "userID": "userID-3523153",
+  "creation_time": "2000-11-24T00:00:00.000Z",
+  "last_update_time": "2010-07-30T00:00:00.000Z",
+  "title": "title-3523153",
+  "to_messages": [
+    {
+      "mID": "28803176-b843-4c74-88e1-759a41c58b69",
+      "role": "role-28803176",
+      "content": "content-28803176",
+      "creation_time": "2019-01-14T00:00:00.000Z"
+    },
+    {
+      "mID": "28803177-6804-4864-9ede-46a0bb998624",
+      "role": "role-28803177",
+      "content": "content-28803177",
+      "creation_time": "2005-11-22T00:00:00.000Z"
+    }
+  ]
+}
+
+
+### Conversation
+# @name Conversation_DELETE
+DELETE {{server}}/odata/v4/roadshow/Conversation/3523153d-dff3-49ef-b066-9342973dceb5
+Content-Type: application/json
+
+
+### Message
+# @name Message_GET
+GET {{server}}/odata/v4/roadshow/Message
+
+
+
+### Message
+# @name Message_POST
+POST {{server}}/odata/v4/roadshow/Message
+Content-Type: application/json
+
+{
+  "mID": "28803176-b843-4c74-88e1-759a41c58b69",
+  "role": "role-28803176",
+  "content": "content-28803176",
+  "creation_time": "2019-01-14T00:00:00.000Z"
+}
+
+
+### Message
+# @name Message_PATCH
+PATCH {{server}}/odata/v4/roadshow/Message(cID=[object Object],mID=28803176-b843-4c74-88e1-759a41c58b69)
+Content-Type: application/json
+
+{
+  "mID": "28803176-b843-4c74-88e1-759a41c58b69",
+  "role": "role-28803176",
+  "content": "content-28803176",
+  "creation_time": "2019-01-14T00:00:00.000Z"
+}
+
+
+### Message
+# @name Message_DELETE
+DELETE {{server}}/odata/v4/roadshow/Message(cID=[object Object],mID=28803176-b843-4c74-88e1-759a41c58b69)
+Content-Type: application/json
+
+
+### getChatRagResponse
+# @name getChatRagResponse_POST
+POST {{server}}/odata/v4/roadshow/getChatRagResponse
+Content-Type: application/json
+
+{
+  "conversationId": "conversationId-18318448",
+  "messageId": "messageId-18318448",
+  "message_time": "message_time-18318448",
+  "user_id": "user_id-18318448",
+  "user_query": "user_query-18318448"
+}

@@ -7,18 +7,7 @@
     xmlns:mdcat="sap.ui.mdc.actiontoolbar"
     xmlns:core="sap.ui.core"
 >
-    <Page id="sideContentContainer"
-        showHeader="false"
-        showNavButton="false">
-         <l:DynamicSideContent
-            id="DynamicSideContent"
-            class="sapUiDSCExplored sapUiContentPadding"
-            containerQuery="true"
-            sideContentFallDown="BelowM"
-            breakpointChanged=".handleBreakpointChangeEvent"
-            showSideContent="{UserData>/showSideContent}"
-        >
-            <l:mainContent>
+   
                 <Page
                     id="_IDGenPage"
                     showHeader="false"
@@ -150,26 +139,11 @@
                                             class="assistantMessage"
                                             width="90%"
                                         />
-                                        <!-- <Text id="_IDGenText3" text="{oChatModel>text}" busy="{oChatModel>busy}" class="assistantMessage" width="90%" wrapping="true" /> -->
                                     </HBox>
                                 </HBox>
                             </VBox>
                         </VBox>
                     </ScrollContainer>
-                    <!-- <Panel
-                        id="_IDGenPanel"
-                        class="transparentFooter"
-                        backgroundDesign="Transparent"
-                        visible="true"
-                        width="98%"
-                    >
-                        <FeedInput
-                            class="customInputHeight"
-                            id="userInput"
-                            placeholder="Ask anything ..."
-                            post="onSendMessage"
-                        />
-                    </Panel> -->
                     <footer>
                         <Toolbar
                             class="greetingBox"
@@ -187,100 +161,4 @@
                         </Toolbar>
                     </footer>
                 </Page>
-            </l:mainContent>
-
-            <l:sideContent>
-                <Toolbar id="_IDGenToolbar4" class="Toolbar">
-                    <Title id="documentCount" text="Documents ({/DocumentFiles/$count})" />
-                </Toolbar>
-
-                <Toolbar
-                    id="_IDGenToolbar1"
-                    class="Toolbar"
-                >
-                    <SearchField
-                        id="searchDocuments"
-                        class="sapUiSmallMarginRight sapUiSmallMarginTop"
-                        search=".onSearchDocuments"
-                    />
-                    <ToolbarSpacer id="_IDGenToolbarSpacer" />
-                    <unified:FileUploader
-                        fileType="pdf"
-                        valueState="None"
-                        id="idFileUploader"
-                        buttonOnly="true"
-                        buttonText="Upload"
-                        name="myFileUpload"
-                        tooltip="Upload your file"
-                        uploadOnChange="true"
-                        change=".onChange"
-                        maximumFileSize="5"
-                        fileSizeExceed=".onFileSizeExceed"
-                    />
-                </Toolbar>
-                <l:VerticalLayout
-                    id="_IDGenVerticalLayout"
-                    width="100%"
-                >
-                    <List
-                        id="idList"
-                        items="{/DocumentFiles}"
-                        growing="true"
-                        growingThreshold="50"
-                        delete=".onFileDeleted"
-                        mode="Delete"
-                        backgroundDesign="Transparent"
-                        updateFinished=".updateFileCount"
-                    >
-                        <infoToolbar>
-                            <OverflowToolbar
-                                visible="false"
-                                id="idInfoToolbar"
-                            >
-                                <Label id="idFilterLabel" />
-                            </OverflowToolbar>
-                        </infoToolbar>
-                        <StandardListItem
-                            id="_IDGenStandardListItem"
-                            title="{fileName}"
-                            iconDensityAware="false"
-                            iconInset="false"
-                        />
-                    </List>
-                </l:VerticalLayout>
-            </l:sideContent>
-        </l:DynamicSideContent>
-
-        <footer>
-            <Toolbar
-                id="_IDGenToolbar2"
-                visible="{UserData>/showSideContent}"
-            >
-                <Button
-                    text="Toggle"
-                    type="Accept"
-                    press=".handleToggleClick"
-                    id="toggleButton"
-                />
-                <Button
-                    text="Upload Documents"
-                    id="showSideContentButton"
-                    press=".handleSideContentShow"
-                    visible="false"
-                />
-                <Slider
-                    id="DSCWidthSlider"
-                    value="100"
-                    liveChange=".handleSliderChange"
-                    visible="{= !${media>/phone}}"
-                />
-                <Text
-                    id="DSCWidthHintText"
-                    text="Best view in full screen"
-                    visible="{= !${media>/phone}}"
-                />
-            </Toolbar>
-        </footer>
-
-    </Page>
 </mvc:View>

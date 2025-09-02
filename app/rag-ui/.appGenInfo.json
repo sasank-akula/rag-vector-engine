@@ -4,7 +4,7 @@
     "generatorPlatform": "SAP Business Application Studio",
     "serviceType": "Local CAP",
     "metadataFilename": "",
-    "serviceUrl": "http://localhost:4004/odata/v4/embedding-storage/",
+    "serviceUrl": "http://localhost:4004/odata/v4/roadshow/",
     "appName": "rag-ui",
     "appTitle": "Chat Bot",
     "appDescription": " A ChatBot application gives the rag responsed based on document context",

@@ -22,7 +22,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/embedding-storage/",
+        "uri": "/odata/v4/roadshow/",
         "type": "OData",
         "settings": {
           "annotations": [],

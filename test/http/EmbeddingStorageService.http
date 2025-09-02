@@ -1,0 +1,483 @@
+@server=http://localhost:4004
+
+
+### DocumentChunk
+# @name DocumentChunk_GET
+GET {{server}}/odata/v4/embedding-storage/DocumentChunk
+
+
+
+### DocumentChunk
+# @name DocumentChunk_POST
+POST {{server}}/odata/v4/embedding-storage/DocumentChunk
+Content-Type: application/json
+
+{
+  "ID": "12692779-a086-4a93-954d-e9eae7baebbe",
+  "text_chunk": "text_chunk-12692779",
+  "metadata_column": "metadata_column-12692779",
+  "document": {
+    "pageId": "SyncTable-3277048"
+  },
+  "documentID": {
+    "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+  },
+  "createdAt": "2005-05-05T00:00:00.000Z",
+  "createdBy": "createdBy.7k1t7@example.com",
+  "modifiedAt": "2007-11-17T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.7k1t7@example.com"
+}
+
+
+### DocumentChunk
+# @name DocumentChunk_PATCH
+PATCH {{server}}/odata/v4/embedding-storage/DocumentChunk/12692779-a086-4a93-954d-e9eae7baebbe
+Content-Type: application/json
+
+{
+  "ID": "12692779-a086-4a93-954d-e9eae7baebbe",
+  "text_chunk": "text_chunk-12692779",
+  "metadata_column": "metadata_column-12692779",
+  "document": {
+    "pageId": "SyncTable-3277048"
+  },
+  "documentID": {
+    "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+  },
+  "createdAt": "2005-05-05T00:00:00.000Z",
+  "createdBy": "createdBy.7k1t7@example.com",
+  "modifiedAt": "2007-11-17T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.7k1t7@example.com"
+}
+
+
+### DocumentChunk
+# @name DocumentChunk_DELETE
+DELETE {{server}}/odata/v4/embedding-storage/DocumentChunk/12692779-a086-4a93-954d-e9eae7baebbe
+Content-Type: application/json
+
+
+### ScrapedData
+# @name ScrapedData_GET
+GET {{server}}/odata/v4/embedding-storage/scrapeWebsite(webUrl:'https://en.wikipedia.org/wiki/Deaths_in_2025')
+
+### ScrapedData
+# @name ScrapedData_POST
+POST {{server}}/odata/v4/embedding-storage/ScrapedData
+Content-Type: application/json
+
+{
+  "ID": "49328417-8a45-4b6f-b714-b638eff20e25",
+  "title": "title-4932841",
+  "url": "url-4932841",
+  "chunkID": [
+    {
+      "ID": "12692779-a086-4a93-954d-e9eae7baebbe",
+      "text_chunk": "text_chunk-12692779",
+      "metadata_column": "metadata_column-12692779",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "createdAt": "2005-05-05T00:00:00.000Z",
+      "createdBy": "createdBy.7k1t7@example.com",
+      "modifiedAt": "2007-11-17T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7k1t7@example.com"
+    },
+    {
+      "ID": "12692780-a2cb-4d06-9a22-efe81d9ab4f8",
+      "text_chunk": "text_chunk-12692780",
+      "metadata_column": "metadata_column-12692780",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "createdAt": "2005-02-12T00:00:00.000Z",
+      "createdBy": "createdBy.7k1t8@example.com",
+      "modifiedAt": "2016-01-14T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7k1t8@example.org"
+    }
+  ],
+  "createdAt": "2019-01-06T00:00:00.000Z",
+  "createdBy": "createdBy.2xq7d@example.net",
+  "modifiedAt": "2020-09-21T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.2xq7d@example.org"
+}
+
+
+### ScrapedData
+# @name ScrapedData_PATCH
+PATCH {{server}}/odata/v4/embedding-storage/ScrapedData/49328417-8a45-4b6f-b714-b638eff20e25
+Content-Type: application/json
+
+{
+  "ID": "49328417-8a45-4b6f-b714-b638eff20e25",
+  "title": "title-4932841",
+  "url": "url-4932841",
+  "chunkID": [
+    {
+      "ID": "12692779-a086-4a93-954d-e9eae7baebbe",
+      "text_chunk": "text_chunk-12692779",
+      "metadata_column": "metadata_column-12692779",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "createdAt": "2005-05-05T00:00:00.000Z",
+      "createdBy": "createdBy.7k1t7@example.com",
+      "modifiedAt": "2007-11-17T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7k1t7@example.com"
+    },
+    {
+      "ID": "12692780-a2cb-4d06-9a22-efe81d9ab4f8",
+      "text_chunk": "text_chunk-12692780",
+      "metadata_column": "metadata_column-12692780",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "createdAt": "2005-02-12T00:00:00.000Z",
+      "createdBy": "createdBy.7k1t8@example.com",
+      "modifiedAt": "2016-01-14T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7k1t8@example.org"
+    }
+  ],
+  "createdAt": "2019-01-06T00:00:00.000Z",
+  "createdBy": "createdBy.2xq7d@example.net",
+  "modifiedAt": "2020-09-21T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.2xq7d@example.org"
+}
+
+
+### ScrapedData
+# @name ScrapedData_DELETE
+DELETE {{server}}/odata/v4/embedding-storage/ScrapedData/49328417-8a45-4b6f-b714-b638eff20e25
+Content-Type: application/json
+
+
+### SyncTable
+# @name SyncTable_GET
+GET {{server}}/odata/v4/embedding-storage/SyncTable
+
+
+
+### SyncTable
+# @name SyncTable_POST
+POST {{server}}/odata/v4/embedding-storage/SyncTable
+Content-Type: application/json
+
+{
+  "pageId": "SyncTable-3277048",
+  "title": "title-3277048",
+  "version": 59,
+  "chuncks": [
+    {
+      "ID": "27174295-566e-4e52-86c1-482e2da3af62",
+      "text_chunk": "text_chunk-27174295",
+      "metadata_column": "metadata_column-27174295",
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2011-08-13T00:00:00.000Z",
+      "createdBy": "createdBy.g6ftj@example.com",
+      "modifiedAt": "2006-08-05T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.g6ftj@example.com"
+    },
+    {
+      "ID": "27174296-2a9a-49a5-a0d6-17ef076f4e12",
+      "text_chunk": "text_chunk-27174296",
+      "metadata_column": "metadata_column-27174296",
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2005-06-04T00:00:00.000Z",
+      "createdBy": "createdBy.g6ftk@example.org",
+      "modifiedAt": "2014-11-15T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.g6ftk@example.org"
+    }
+  ],
+  "createdAt": "2007-03-21T00:00:00.000Z",
+  "createdBy": "createdBy.1y8l4@example.net",
+  "modifiedAt": "2006-11-11T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.1y8l4@example.net"
+}
+
+
+### SyncTable
+# @name SyncTable_PATCH
+PATCH {{server}}/odata/v4/embedding-storage/SyncTable/SyncTable-3277048
+Content-Type: application/json
+
+{
+  "pageId": "SyncTable-3277048",
+  "title": "title-3277048",
+  "version": 59,
+  "chuncks": [
+    {
+      "ID": "27174295-566e-4e52-86c1-482e2da3af62",
+      "text_chunk": "text_chunk-27174295",
+      "metadata_column": "metadata_column-27174295",
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2011-08-13T00:00:00.000Z",
+      "createdBy": "createdBy.g6ftj@example.com",
+      "modifiedAt": "2006-08-05T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.g6ftj@example.com"
+    },
+    {
+      "ID": "27174296-2a9a-49a5-a0d6-17ef076f4e12",
+      "text_chunk": "text_chunk-27174296",
+      "metadata_column": "metadata_column-27174296",
+      "documentID": {
+        "ID": "12699114-5d7d-4237-ba56-b46b259307fc"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2005-06-04T00:00:00.000Z",
+      "createdBy": "createdBy.g6ftk@example.org",
+      "modifiedAt": "2014-11-15T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.g6ftk@example.org"
+    }
+  ],
+  "createdAt": "2007-03-21T00:00:00.000Z",
+  "createdBy": "createdBy.1y8l4@example.net",
+  "modifiedAt": "2006-11-11T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.1y8l4@example.net"
+}
+
+
+### SyncTable
+# @name SyncTable_DELETE
+DELETE {{server}}/odata/v4/embedding-storage/SyncTable/SyncTable-3277048
+Content-Type: application/json
+
+
+### DocumentFiles
+# @name DocumentFiles_GET
+GET {{server}}/odata/v4/embedding-storage/DocumentFiles
+
+
+
+### DocumentFiles
+# @name DocumentFiles_POST
+POST {{server}}/odata/v4/embedding-storage/DocumentFiles
+Content-Type: application/json
+
+{
+  "ID": "12699114-5d7d-4237-ba56-b46b259307fc",
+  "content": "content-12699114",
+  "mediaType": "mediaType-12699114",
+  "fileName": "fileName-12699114",
+  "size": "size-12699114",
+  "chunkID": [
+    {
+      "ID": "12968677-eabc-4014-bfb0-a6439f05ab49",
+      "text_chunk": "text_chunk-12968677",
+      "metadata_column": "metadata_column-12968677",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2011-08-06T00:00:00.000Z",
+      "createdBy": "createdBy.7pyp1@example.com",
+      "modifiedAt": "2009-10-19T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7pyp1@example.com"
+    },
+    {
+      "ID": "12968678-843c-4d45-a428-64ba81937acc",
+      "text_chunk": "text_chunk-12968678",
+      "metadata_column": "metadata_column-12968678",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2011-05-17T00:00:00.000Z",
+      "createdBy": "createdBy.7pyp2@example.com",
+      "modifiedAt": "2002-03-06T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7pyp2@example.org"
+    }
+  ],
+  "createdAt": "2014-02-06T00:00:00.000Z",
+  "createdBy": "createdBy.7k6p6@example.net",
+  "modifiedAt": "2004-07-14T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.7k6p6@example.org"
+}
+
+
+### DocumentFiles
+# @name DocumentFiles_PATCH
+PATCH {{server}}/odata/v4/embedding-storage/DocumentFiles/12699114-5d7d-4237-ba56-b46b259307fc
+Content-Type: application/json
+
+{
+  "ID": "12699114-5d7d-4237-ba56-b46b259307fc",
+  "content": "content-12699114",
+  "mediaType": "mediaType-12699114",
+  "fileName": "fileName-12699114",
+  "size": "size-12699114",
+  "chunkID": [
+    {
+      "ID": "12968677-eabc-4014-bfb0-a6439f05ab49",
+      "text_chunk": "text_chunk-12968677",
+      "metadata_column": "metadata_column-12968677",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2011-08-06T00:00:00.000Z",
+      "createdBy": "createdBy.7pyp1@example.com",
+      "modifiedAt": "2009-10-19T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7pyp1@example.com"
+    },
+    {
+      "ID": "12968678-843c-4d45-a428-64ba81937acc",
+      "text_chunk": "text_chunk-12968678",
+      "metadata_column": "metadata_column-12968678",
+      "document": {
+        "pageId": "SyncTable-3277048"
+      },
+      "scrapdataID": {
+        "ID": "49328417-8a45-4b6f-b714-b638eff20e25"
+      },
+      "createdAt": "2011-05-17T00:00:00.000Z",
+      "createdBy": "createdBy.7pyp2@example.com",
+      "modifiedAt": "2002-03-06T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.7pyp2@example.org"
+    }
+  ],
+  "createdAt": "2014-02-06T00:00:00.000Z",
+  "createdBy": "createdBy.7k6p6@example.net",
+  "modifiedAt": "2004-07-14T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.7k6p6@example.org"
+}
+
+
+### DocumentFiles
+# @name DocumentFiles_DELETE
+DELETE {{server}}/odata/v4/embedding-storage/DocumentFiles/12699114-5d7d-4237-ba56-b46b259307fc
+Content-Type: application/json
+
+
+### pageCreated
+# @name pageCreated_POST
+POST {{server}}/odata/v4/embedding-storage/pageCreated
+Content-Type: application/json
+
+{
+  "page": {
+    "idAsString": "49577991",
+    "creatorAccountId": "712020:b864ad48-ca96-4ba7-8d5f-a4a8d95e8524",
+    "spaceKey": "~712020b864ad48ca964ba78d5fa4a8d95e8524",
+    "spaceId": 163842,
+    "modificationDate": 1756817471165,
+    "lastModifierAccountId": "712020:b864ad48-ca96-4ba7-8d5f-a4a8d95e8524",
+    "self": "https://akulapoornasasank.atlassian.net/wiki/spaces/~712020b864ad48ca964ba78d5fa4a8d95e8524/pages/49577991/dfcwefrvca",
+    "id": "49577991",
+    "title": "dfcwefrvca",
+    "creationDate": 1756817458251,
+    "contentType": "page",
+    "version": 1
+  },
+  "timestamp": 1756817471167,
+  "accountType": "customer",
+  "userAccountId": "712020:b864ad48-ca96-4ba7-8d5f-a4a8d95e8524"
+}
+
+
+### pageUpdated
+# @name pageUpdated_POST
+POST {{server}}/odata/v4/embedding-storage/pageUpdated
+Content-Type: application/json
+
+{
+  "page": {
+    "idAsString": "49577991",
+    "creatorAccountId": "712020:b864ad48-ca96-4ba7-8d5f-a4a8d95e8524",
+    "spaceKey": "~712020b864ad48ca964ba78d5fa4a8d95e8524",
+    "spaceId": 163842,
+    "modificationDate": 1756817644922,
+    "lastModifierAccountId": "712020:b864ad48-ca96-4ba7-8d5f-a4a8d95e8524",
+    "self": "https://akulapoornasasank.atlassian.net/wiki/spaces/~712020b864ad48ca964ba78d5fa4a8d95e8524/pages/49577991/dfcwefrvca",
+    "id": "49577991",
+    "title": "dfcwefrvca",
+    "creationDate": 1756817458251,
+    "contentType": "page",
+    "version": 2
+  },
+  "timestamp": 1756817644942,
+  "accountType": "customer",
+  "userAccountId": "712020:b864ad48-ca96-4ba7-8d5f-a4a8d95e8524",
+  "updateTrigger": "edit_page",
+  "suppressNotifications": false
+}
+
+
+### pageTrashed
+# @name pageTrashed_POST
+POST {{server}}/odata/v4/embedding-storage/pageTrashed
+Content-Type: application/json
+
+{
+  "page": {
+    "idAsString": "idAsString-18254047",
+    "creatorAccountId": "creatorAccountId-18254047",
+    "spaceKey": "spaceKey-18254047",
+    "spaceId": 37,
+    "modificationDate": 50,
+    "lastModifierAccountId": "lastModifierAccountId-18254047",
+    "self": "self-18254047",
+    "id": "id-18254047",
+    "title": "title-18254047",
+    "creationDate": 60,
+    "contentType": "contentType-18254047",
+    "version": 51
+  },
+  "userAccountId": "userAccountId-18254047",
+  "timestamp": 11,
+  "accountType": "accountType-18254047"
+}
+
+
+### getTextFromImage
+# @name getTextFromImage_POST
+POST {{server}}/odata/v4/embedding-storage/getTextFromImage
+Content-Type: application/json
+
+{
+  "image": "image-21927305"
+}
+
+
+### storeAllConfluenceEmbeddings
+# @name storeAllConfluenceEmbeddings_POST
+POST {{server}}/odata/v4/embedding-storage/storeAllConfluenceEmbeddings
+Content-Type: application/json
+
+{
+  "spaceKey": "spaceKey-23560935"
+}

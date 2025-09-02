@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/UIComponent","com/ai/ragadminui/model/models"],(e,i)=>{"use strict";return e.extend("com.ai.ragadminui.Component",{metadata:{manifest:"json",interfaces:["sap.ui.core.IAsyncContentCreation"]},init(){e.prototype.init.apply(this,arguments);this.setModel(i.createDeviceModel(),"device");this.getRouter().initialize()}})});
+//# sourceMappingURL=Component.js.map

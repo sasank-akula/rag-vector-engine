@@ -19,82 +19,154 @@ sap.ui.define([
     },
 
 
+    // _getRagResponse: async function (convId) {
+
+    //   let oInput = this.byId("userInput");
+    //   let prompt = oInput.getValue().trim();
+    //   if (!prompt) return;
+
+    //   let oModel = this.getView().getModel("oChatModel");
+    //   let aChatList = oModel.getProperty("/list") || [];
+
+
+    //   if (!oModel.getProperty("/started")) {
+    //     oModel.setProperty("/started", true);
+    //   }
+
+
+    //   aChatList.push({
+    //     type: "query",
+    //     text: prompt,
+    //     busy: false
+    //   });
+
+    //   aChatList.push({
+    //     type: "response",
+    //     text: "",
+    //     busy: true
+    //   });
+
+    //   oModel.setProperty("/list", aChatList);
+    //   let that = this;
+    //   let timeStamp = new Date().toISOString();
+
+
+    //   let payload = {
+    //     "conversationId": convId,
+    //     "messageId": "",
+    //     "message_time": timeStamp,
+    //     "user_id": "user_id-24045578",
+    //     "user_query": prompt
+    //   }
+
+    //   $.ajax({
+    //     url: "/odata/v4/roadshow/getChatRagResponse",
+    //     // url: this._getServicePath() + "/odata/v4/roadshow/getChatRagResponse",
+    //     type: "POST",
+    //     contentType: "application/json",
+    //     data: JSON.stringify(payload),
+    //     success: function (oData) {
+    //       let list = oModel.getProperty("/list") || [];
+    //       if (list.length > 0 && list[list.length - 1].busy) {
+    //         list[list.length - 1] = {
+    //           type: "response",
+    //           text: oData.content,
+    //           busy: false
+    //         };
+    //         oModel.setProperty("/list", list);
+    //       }
+    //       that.scrollChat()
+    //     },
+    //     error: function () {
+    //       let list = oModel.getProperty("/list") || [];
+    //       if (list.length > 0 && list[list.length - 1].busy) {
+    //         list[list.length - 1] = {
+    //           type: "response",
+    //           text: "Something went wrong.",
+    //           busy: false
+    //         };
+    //         oModel.setProperty("/list", list);
+    //       }
+    //       that.scrollChat();
+    //     }
+    //   });
+
+    //   oInput.setValue("");
+    //   that.scrollChat();
+    // },
     _getRagResponse: async function (convId) {
+  let oInput = this.byId("userInput");
+  let prompt = oInput.getValue().trim();
+  if (!prompt) return;
 
-      let oInput = this.byId("userInput");
-      let prompt = oInput.getValue().trim();
-      if (!prompt) return;
+  let oModel = this.getView().getModel("oChatModel");
+  let aChatList = oModel.getProperty("/list") || [];
 
-      let oModel = this.getView().getModel("oChatModel");
-      let aChatList = oModel.getProperty("/list") || [];
+  if (!oModel.getProperty("/started")) {
+    oModel.setProperty("/started", true);
+  }
 
+  aChatList.push({
+    type: "query",
+    text: prompt,
+    busy: false
+  });
 
-      if (!oModel.getProperty("/started")) {
-        oModel.setProperty("/started", true);
+  aChatList.push({
+    type: "response",
+    text: "",
+    busy: true
+  });
+
+  oModel.setProperty("/list", aChatList);
+  let that = this;
+  let timeStamp = new Date().toISOString();
+
+  let oPayload = {
+    "conversationId": convId,
+    "messageId": "",
+    "message_time": timeStamp,
+    "user_id": "user_id-24045578",
+    "user_query": prompt
+  };
+
+  // 🚀 Use your default CAP OData V4 model (not oChatModel)
+  let oServiceModel = this.getView().getModel();  
+
+  oServiceModel
+    .bindAction("/getChatRagResponse") // action name from CAP
+    .execute({ data: oPayload })       // send payload
+    .then((oResponse) => {
+      let result = oResponse.getBoundContext().getObject();
+
+      let list = oModel.getProperty("/list") || [];
+      if (list.length > 0 && list[list.length - 1].busy) {
+        list[list.length - 1] = {
+          type: "response",
+          text: result.content,
+          busy: false
+        };
+        oModel.setProperty("/list", list);
       }
-
-
-      aChatList.push({
-        type: "query",
-        text: prompt,
-        busy: false
-      });
-
-      aChatList.push({
-        type: "response",
-        text: "",
-        busy: true
-      });
-
-      oModel.setProperty("/list", aChatList);
-      let that = this;
-      let timeStamp = new Date().toISOString();
-
-
-      let payload = {
-        "conversationId": convId,
-        "messageId": "",
-        "message_time": timeStamp,
-        "user_id": "user_id-24045578",
-        "user_query": prompt
-      }
-
-      $.ajax({
-        // url: "/odata/v4/roadshow/getChatRagResponse",
-        url: this._getServicePath() + "/odata/v4/roadshow/getChatRagResponse",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(payload),
-        success: function (oData) {
-          let list = oModel.getProperty("/list") || [];
-          if (list.length > 0 && list[list.length - 1].busy) {
-            list[list.length - 1] = {
-              type: "response",
-              text: oData.content,
-              busy: false
-            };
-            oModel.setProperty("/list", list);
-          }
-          that.scrollChat()
-        },
-        error: function () {
-          let list = oModel.getProperty("/list") || [];
-          if (list.length > 0 && list[list.length - 1].busy) {
-            list[list.length - 1] = {
-              type: "response",
-              text: "Something went wrong.",
-              busy: false
-            };
-            oModel.setProperty("/list", list);
-          }
-          that.scrollChat();
-        }
-      });
-
-      oInput.setValue("");
       that.scrollChat();
+    })
+    .catch((err) => {
+      let list = oModel.getProperty("/list") || [];
+      if (list.length > 0 && list[list.length - 1].busy) {
+        list[list.length - 1] = {
+          type: "response",
+          text: "Something went wrong.",
+          busy: false
+        };
+        oModel.setProperty("/list", list);
+      }
+      that.scrollChat();
+    });
 
-    },
+  oInput.setValue("");
+  that.scrollChat();
+}
+,
 
     onQuickAction: function (oEvent) {
       let sText = oEvent.getSource().getText();
@@ -131,8 +203,6 @@ sap.ui.define([
             console.error("Creation error:", oError);
         });
 },
-
-
     scrollChat: function () {
       setTimeout(() => {
         let oScroll = this.byId("chatScroll");
